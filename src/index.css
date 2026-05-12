@@ -1,0 +1,535 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F7F3EE;
+  color: #4F5D4A;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  text-align: left;
+}
+
+/* Responsive helpers */
+img { max-width: 100%; height: auto; }
+
+/* ── Hero arch layout ── */
+.hero-arch {
+  position: relative;
+  /* Use dvh with vh fallback; min-height covers iOS fill-available issue */
+  height: 92vh;
+  height: 92dvh;
+  min-height: 600px;
+  /* Fallback for older iOS */
+  min-height: -webkit-fill-available;
+  border-radius: 0 0 50% 50% / 0 0 90px 90px;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════
+   HERO — floating olive strip composition
+   Visual: CREAM BG → floating strip → bowl overlapping
+   ════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO — Premium editorial café hero
+   Panel : left:0 · width:28% · full 100vh · smoky fade bottom
+   Bowl  : 65% right (cream) · 35% left (on panel)
+           left = 28% − 14vw  (0.35 × 40vw = 14vw)
+   Grain : SVG noise overlay on both bg and panel
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Panel ── */
+.hero-editorial-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28%;
+  height: 100vh;
+  /* Rich olive → warm smoky tail */
+  background: linear-gradient(
+    175deg,
+    #4a6248 0%,
+    #3c5540 22%,
+    #415c3e 48%,
+    #4d6549 72%,
+    #c2beB6 100%
+  );
+  box-shadow:
+    8px 0 56px rgba(44, 62, 42, 0.28),
+    inset -3px 0 0 rgba(255,255,255,0.04);
+  pointer-events: none;
+  z-index: 0;
+  /* Smooth fade out — smoky bottom */
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 66%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 66%, transparent 100%);
+}
+
+/* Inner lighting + grain */
+.hero-editorial-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Top soft catch-light */
+    radial-gradient(ellipse 90% 50% at 50% 3%,  rgba(255,255,255,0.09) 0%, transparent 55%),
+    /* Centre dark-olive glow for depth */
+    radial-gradient(ellipse 70% 55% at 50% 45%, rgba(28,42,26,0.30) 0%, transparent 65%),
+    /* Bottom deepen */
+    radial-gradient(ellipse 60% 30% at 50% 95%, rgba(0,0,0,0.20) 0%, transparent 55%),
+    /* SVG grain texture */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: auto, auto, auto, 200px 200px;
+  opacity: 1;
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+/* The grain layer needs separate opacity */
+.hero-editorial-panel::before { opacity: 0.85; }
+
+/* Right-edge soft shadow bleed */
+.hero-editorial-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  right: -36px;
+  width: 48px;
+  background: linear-gradient(90deg, rgba(44, 62, 42, 0.14), transparent);
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+/* ── Brand centered in panel ── */
+.hero-brand-strip {
+  position: absolute;
+  left: 0;
+  width: 28%;
+  top: 92px;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.hero-brand-strip img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) sepia(0.12) saturate(1.0) brightness(1.10);
+  margin-bottom: 6px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25)) brightness(0) invert(1) sepia(0.1) brightness(1.1);
+}
+
+.hero-brand-strip-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.26;
+}
+
+.hero-brand-strip-name {
+  font-family: 'Playfair Display', serif;
+  color: #F2E4CF;
+  font-size: 1.08rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.025em;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.18);
+}
+
+.hero-brand-strip-sub {
+  font-family: 'Poppins', sans-serif;
+  color: #C5A068;
+  font-size: 0.51rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* ── Bowl — 65% cream / 35% panel ──
+   left = panel_right − 0.35 × bowl_width
+        = 28%          − 0.35 × 40vw
+        = 28%          − 14vw
+   ───────────────────────────────── */
+.hero-bowl-glow {
+  --hero-bowl-size: clamp(440px, 40vw, 560px);
+  position: absolute;
+  left: calc(28% - 14vw);
+  top: calc(52% - var(--hero-bowl-size) / 2);
+  width: var(--hero-bowl-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(42, 54, 40, 0.16) 0%,
+    rgba(58, 72, 56, 0.08) 44%,
+    transparent 65%);
+  filter: blur(26px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-bowl-photo {
+  --hero-bowl-size: clamp(440px, 40vw, 560px);
+  position: absolute;
+  left: calc(28% - 14vw);
+  top: calc(52% - var(--hero-bowl-size) / 2);
+  width: var(--hero-bowl-size);
+  z-index: 3;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 28px 50px rgba(0,0,0,0.30))
+    drop-shadow(0 68px 112px rgba(0,0,0,0.15));
+}
+
+/* Ambient ground shadow under bowl */
+.hero-bowl-photo::before {
+  content: '';
+  position: absolute;
+  inset: 14% 10% 4% 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(20, 30, 18, 0.36), transparent 60%);
+  filter: blur(32px);
+  transform: translate(-2%, 18%);
+  z-index: -1;
+}
+
+.hero-bowl-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-cta {
+  box-shadow: 0 8px 24px rgba(47, 58, 46, 0.14);
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px);
+}
+
+.hero-cta-primary:hover {
+  box-shadow: 0 16px 36px rgba(47, 58, 46, 0.28);
+  background-color: #3D4838 !important;
+}
+
+.hero-cta-secondary:hover {
+  background-color: #4F5D4A !important;
+  color: #F5EEE3 !important;
+  box-shadow: 0 16px 36px rgba(47, 58, 46, 0.20);
+}
+
+.hero-doodle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+}
+
+.hero-doodle-plate {
+  right: 9%;
+  bottom: 14%;
+  width: 118px;
+  height: 118px;
+  border: 2px solid #5E6B57;
+  border-radius: 50%;
+}
+
+.hero-doodle-plate::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 1.5px solid #5E6B57;
+  border-radius: 50%;
+}
+
+.hero-doodle-sprig {
+  right: 21%;
+  top: 21%;
+  width: 72px;
+  height: 96px;
+  border-left: 2px solid #5E6B57;
+  transform: rotate(-28deg);
+}
+
+.hero-doodle-sprig::before,
+.hero-doodle-sprig::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 18px;
+  border: 1.5px solid #5E6B57;
+  border-radius: 50%;
+}
+
+.hero-doodle-sprig::before {
+  top: 18px;
+  left: 3px;
+  transform: rotate(-22deg);
+}
+
+.hero-doodle-sprig::after {
+  top: 48px;
+  left: -35px;
+  transform: rotate(24deg);
+}
+
+@media (max-width: 768px) {
+  .hero-arch {
+    height: 88vh;
+    height: 88dvh;
+    min-height: 520px;
+    border-radius: 0 0 50% 50% / 0 0 60px 60px;
+  }
+
+  .hero-content {
+    align-items: center !important;
+    margin: 0 0 0 38% !important;
+    padding: 6.1rem 1rem 6.4rem !important;
+    max-width: none !important;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2rem, 8.4vw, 3rem) !important;
+  }
+
+  .hero-content p {
+    max-width: 300px !important;
+    font-size: 0.86rem !important;
+    line-height: 1.72 !important;
+  }
+
+  .hero-editorial-panel {
+    left: 0;
+    width: 32%;
+    height: 100vh;
+  }
+
+  .hero-brand-strip {
+    left: 0;
+    width: 32%;
+    top: 78px;
+  }
+
+  .hero-brand-strip img    { width: 30px; height: 30px; }
+  .hero-brand-strip-name   { font-size: 0.80rem; }
+  .hero-brand-strip-sub    { font-size: 0.44rem; }
+
+  .hero-bowl-glow {
+    --hero-bowl-size: min(58vw, 300px);
+    left: 1%;
+    top: calc(54% - (var(--hero-bowl-size) / 2));
+    bottom: auto;
+    width: var(--hero-bowl-size);
+    opacity: 0.55;
+  }
+
+  .hero-bowl-photo {
+    --hero-bowl-size: min(58vw, 310px);
+    left: 1%;
+    top: calc(55% - (var(--hero-bowl-size) / 2));
+    bottom: auto;
+    width: var(--hero-bowl-size);
+    opacity: 0.94;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-arch {
+    height: 85vh;
+    height: 85dvh;
+    min-height: 480px;
+    border-radius: 0 0 40% 40% / 0 0 40px 40px;
+  }
+
+  .hero-content {
+    margin-left: 35% !important;
+    padding: 6.25rem 0.8rem 6.5rem !important;
+  }
+
+  .hero-location {
+    display: none !important;
+  }
+
+  .hero-brand-strip { display: none !important; }
+
+  .hero-editorial-panel { left: 0; width: 34%; }
+
+  .hero-bowl-photo {
+    --hero-bowl-size: 58vw;
+    left: 1%;
+    top: calc(57% - (var(--hero-bowl-size) / 2));
+    bottom: auto;
+    width: var(--hero-bowl-size);
+    opacity: 0.9;
+  }
+}
+
+/* ── Section padding tightening on mobile ── */
+@media (max-width: 640px) {
+  /* Tighten horizontal section padding on small phones */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Hero heading tighter on mobile */
+  h1 { line-height: 1.15 !important; }
+
+  /* Prevent overflow on narrow screens */
+  * { max-width: 100%; }
+}
+
+/* Smooth image rendering */
+img { -webkit-backface-visibility: hidden; }
+
+/* Remove tap highlight on mobile */
+a, button { -webkit-tap-highlight-color: transparent; }
+
+/* ── Google Reviews Marquee ── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.reviews-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+  /* iOS momentum scrolling for the parent */
+  -webkit-overflow-scrolling: touch;
+}
+.reviews-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Scrollable containers (iOS momentum) ── */
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+}
+
+/* ── Mobile filter pills: hide scrollbar but keep scrollable ── */
+.filter-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Cart button safe area on iOS ── */
+.cart-button-wrap {
+  /* Ensure pill doesn't sit under iOS home bar */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Footer grid mobile stacking ── */
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+/* ── Hero split layout (YumRush style) ── */
+.hero-split {
+  display: grid;
+  grid-template-columns: 46% 54%;
+  height: 100%;
+}
+@media (max-width: 768px) {
+  .hero-split          { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .hero-split-img      { display: none !important; }
+  .hero-split-text     { text-align: center !important; align-items: center !important; padding: 2.5rem 1.5rem !important; }
+  .hero-split-text .hero-rule { margin-left: auto !important; margin-right: auto !important; }
+}
+
+/* ── Gallery masonry: single column on very small screens ── */
+@media (max-width: 480px) {
+  .gallery-masonry {
+    columns: 1 !important;
+  }
+}
+
+/* ── Menu grid: single column on small phones ── */
+@media (max-width: 420px) {
+  .menu-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── About stats grid: 2 columns on mobile ── */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+}
+
+/* ── Navbar desktop links hidden on mobile ── */
+@media (max-width: 767px) {
+  .nav-desktop {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  .nav-hamburger {
+    display: none !important;
+  }
+}
+
+/* ── Two-column layouts: reduce gap on mobile ── */
+@media (max-width: 640px) {
+  .two-col-grid {
+    gap: 2rem !important;
+  }
+}
+
+/* ── WhatsApp button: shift up on mobile when cart pill might appear ── */
+@media (max-width: 640px) {
+  .wa-float-btn {
+    /* Move up to avoid overlap with centered cart pill at bottom */
+    bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 16px !important;
+    width: 46px !important;
+    height: 46px !important;
+  }
+  .wa-float-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+/* ── Hero left panel: hide on mobile so full-width beige shows ── */
+@media (max-width: 768px) {
+  .hero-left-panel {
+    display: none !important;
+  }
+}
