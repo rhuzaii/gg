@@ -40,41 +40,42 @@ export default function Navbar() {
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 50,
-        padding: '0 1.5rem',
+        padding: transparent ? '0 clamp(1rem, 5vw, 3.75rem)' : '0 clamp(1rem, 3vw, 1.5rem)',
       }}
     >
-      <div style={{ maxWidth: '1152px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
-        {/* Logo — hidden on desktop homepage (hero shows brand on strip instead) */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: transparent ? '80px' : '72px', transition: 'height 0.3s ease' }}>
+        {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', opacity: lightHero ? 0 : 1, pointerEvents: lightHero ? 'none' : 'auto', transition: 'opacity 0.35s ease' }}>
           <img
             src={logoLight}
             alt="Greens & Giggles"
-            style={{ width: '38px', height: '38px', objectFit: 'contain', filter: lightHero ? 'none' : transparent ? 'brightness(10)' : 'none', transition: 'filter 0.3s' }}
+            style={{ width: transparent ? '42px' : '38px', height: transparent ? '42px' : '38px', objectFit: 'contain', filter: lightHero ? 'none' : transparent ? 'brightness(10)' : 'none', transition: 'filter 0.3s, width 0.3s, height 0.3s' }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15, whiteSpace: 'nowrap' }}>
-            <span style={{ fontFamily: 'Playfair Display, serif', color: lightHero ? '#2F3A2E' : transparent ? '#F7F3EE' : '#4F5D4A', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '-0.2px', transition: 'color 0.3s' }}>
+            <span style={{ fontFamily: 'Playfair Display, serif', color: lightHero ? '#2F3A2E' : transparent ? '#F7F3EE' : '#4F5D4A', fontSize: transparent ? '1.15rem' : '1.05rem', fontWeight: 700, letterSpacing: '-0.2px', transition: 'color 0.3s, font-size 0.3s' }}>
               Greens &amp; Giggles
             </span>
-            <span style={{ fontFamily: 'Poppins, sans-serif', color: lightHero ? '#8B6B4A' : transparent ? 'rgba(247,243,238,0.6)' : '#8B6B4A', fontSize: '0.58rem', letterSpacing: '0.16em', textTransform: 'uppercase', transition: 'color 0.3s' }}>
+            <span style={{ fontFamily: 'Poppins, sans-serif', color: lightHero ? '#8B6B4A' : transparent ? 'rgba(247,243,238,0.55)' : '#8B6B4A', fontSize: '0.58rem', letterSpacing: '0.16em', textTransform: 'uppercase', transition: 'color 0.3s' }}>
               Cafe &amp; Kitchen
             </span>
           </div>
         </Link>
 
         {/* Desktop Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2.6rem' }} className="nav-desktop">
+        <div style={{ display: 'flex', alignItems: 'center', gap: transparent ? '2.8rem' : '2.4rem' }} className="nav-desktop">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               style={{
                 fontFamily: 'Poppins, sans-serif',
-                fontSize: '0.84rem',
-                fontWeight: 500,
-                letterSpacing: '0.04em',
+                fontSize: transparent ? '15px' : '0.84rem',
+                fontWeight: 400,
+                letterSpacing: '0.3px',
+                opacity: transparent ? 0.9 : 1,
                 color: location.pathname === link.path
                   ? (lightHero ? '#7A5C38' : transparent ? '#E6C9A8' : '#7A5C38')
-                  : (lightHero ? '#4F5D4A' : transparent ? 'rgba(247,243,238,0.78)' : '#4F5D4A'),
+                  : (lightHero ? '#4F5D4A' : transparent ? 'rgba(247,243,238,0.82)' : '#4F5D4A'),
                 textDecoration: 'none',
                 position: 'relative',
                 paddingBottom: '5px',
@@ -102,17 +103,18 @@ export default function Navbar() {
           <Link
             to="/menu"
             style={{
-              backgroundColor: lightHero ? '#3A4836' : transparent ? 'rgba(58,72,54,0.88)' : '#3A4836',
-              color: '#F0E8D8',
+              backgroundColor: transparent ? 'rgba(255,255,255,0.08)' : '#3A4836',
+              border: transparent ? '1px solid rgba(255,255,255,0.18)' : 'none',
+              color: transparent ? 'rgba(247,243,238,0.92)' : '#F0E8D8',
               fontFamily: 'Poppins, sans-serif',
-              fontSize: '0.78rem',
-              fontWeight: 600,
-              letterSpacing: '0.05em',
+              fontSize: '0.82rem',
+              fontWeight: 500,
+              letterSpacing: '0.04em',
               padding: '10px 22px',
               borderRadius: '100px',
               textDecoration: 'none',
-              transition: 'background-color 0.25s, box-shadow 0.25s',
-              boxShadow: '0 4px 16px rgba(47,58,46,0.18)',
+              transition: 'background-color 0.25s, box-shadow 0.25s, border 0.25s',
+              boxShadow: transparent ? 'none' : '0 4px 16px rgba(47,58,46,0.18)',
             }}
           >
             Order Now

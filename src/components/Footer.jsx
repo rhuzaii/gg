@@ -93,12 +93,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ paddingTop: '2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
-          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.78rem', color: 'rgba(247,243,238,0.45)' }}>
+        <div className="footer-bottom-bar" style={{ paddingTop: '2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.78rem', color: 'rgba(247,243,238,0.45)', margin: 0 }}>
             &copy; {new Date().getFullYear()} Greens &amp; Giggles. All rights reserved.
           </p>
-          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.78rem', color: 'rgba(247,243,238,0.35)' }}>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.78rem', color: 'rgba(247,243,238,0.35)', margin: 0 }}>
             Made with love in Bengaluru
+          </p>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.78rem', color: 'rgba(247,243,238,0.28)', letterSpacing: '0.04em', margin: 0 }}>
+            Designed &amp; Developed by Rana
           </p>
         </div>
       </div>

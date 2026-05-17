@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&family=Caveat:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
@@ -389,6 +389,24 @@ img { max-width: 100%; height: auto; }
   }
 }
 
+/* ── Hero h1: remove nowrap on mobile to prevent overflow ── */
+.hero-h1 {
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .hero-h1 {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* ── Hero section: ensure no horizontal overflow at any size ── */
+.hero-section-wrap {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* ── Section padding tightening on mobile ── */
 @media (max-width: 640px) {
   /* Tighten horizontal section padding on small phones */
@@ -399,13 +417,19 @@ img { max-width: 100%; height: auto; }
 
   /* Hero heading tighter on mobile */
   h1 { line-height: 1.15 !important; }
-
-  /* Prevent overflow on narrow screens */
-  * { max-width: 100%; }
 }
 
 /* Smooth image rendering */
 img { -webkit-backface-visibility: hidden; }
+
+/* Ensure iframes and images don't overflow their containers */
+iframe {
+  max-width: 100%;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* Remove tap highlight on mobile */
 a, button { -webkit-tap-highlight-color: transparent; }
@@ -455,6 +479,24 @@ a, button { -webkit-tap-highlight-color: transparent; }
   .footer-grid {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
+  }
+}
+
+/* ── Footer bottom bar: stack vertically and center on mobile ── */
+@media (max-width: 639px) {
+  .footer-bottom-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* ── Navbar: reduce side padding on mobile ── */
+@media (max-width: 767px) {
+  nav {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -533,3 +575,19 @@ a, button { -webkit-tap-highlight-color: transparent; }
     display: none !important;
   }
 }
+
+/* ── Editorial hero sidebar ── */
+@media (max-width: 900px) {
+  .hero-sidebar {
+    display: none !important;
+  }
+}
+
+/* ── Hero background image: shift to left on mobile so bowl artwork
+      doesn't overlap the text content ── */
+@media (max-width: 640px) {
+  .hero-bg-img {
+    object-position: 20% center !important;
+  }
+}
+

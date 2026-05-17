@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import cafeInterior4 from '../assets/cafe-interior-4.png';
 import cafeBarArea from '../assets/cafe-bar-area.jpg';
-import heroBowlCutout from '../assets/hero-bowl-cutout.png';
-import logoImg from '../assets/logo.png';
+import herobg from '../assets/herobg.png';
 
 import dishSmoothie    from '../assets/dish-smoothie.jpg';
 import dishSoup        from '../assets/dish-soup.jpg';
@@ -299,80 +298,115 @@ export default function Home() {
 
   return (
     <div>
-      {/* ── Hero — Full olive centered layout ── */}
-      <section
-        className="hero-arch"
-        style={{
-          background: '#4A5845',
+      {/* ── Hero — Minimal Editorial, typography-led ── */}
+      <section style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: '100vh', backgroundColor: '#4f5c46', boxSizing: 'border-box', width: '100%' }}>
+
+        {/* Full-bleed hero background image */}
+        <img
+          src={herobg}
+          alt=""
+          aria-hidden="true"
+          className="hero-bg-img"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+
+        {/* ── Single-column editorial layout ── */}
+        <div style={{
+          width: '100%',
+          boxSizing: 'border-box',
+          paddingLeft: 'clamp(1rem, 6vw, 7rem)',
+          paddingRight: 'clamp(1rem, 4vw, 2rem)',
           position: 'relative',
-          overflow: 'hidden',
+          zIndex: 2,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {/* Decorative circles */}
-        <div aria-hidden="true" style={{ position: 'absolute', bottom: '-130px', left: '-90px', width: '420px', height: '420px', borderRadius: '50%', background: 'rgba(0,0,0,0.15)', pointerEvents: 'none', zIndex: 0 }} />
-        <div aria-hidden="true" style={{ position: 'absolute', top: '-80px', right: '-70px', width: '370px', height: '370px', borderRadius: '50%', background: 'rgba(0,0,0,0.13)', pointerEvents: 'none', zIndex: 0 }} />
-        <div aria-hidden="true" style={{ position: 'absolute', top: '36%', right: '7%', width: '210px', height: '210px', borderRadius: '50%', background: 'rgba(0,0,0,0.10)', pointerEvents: 'none', zIndex: 0 }} />
+          minHeight: '100vh',
+        }}>
 
-        {/* Center content */}
-        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: '700px', padding: '2rem 2rem' }}>
+          {/* Text content */}
+          <div style={{ flexShrink: 0, paddingTop: '80px', paddingBottom: '80px', maxWidth: '100%', boxSizing: 'border-box' }}>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.72rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.68)', marginBottom: '1.5rem' }}
-          >
-            New BEL Road · Bengaluru
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem, 7vw, 5.8rem)', fontWeight: 700, color: '#F5EEE3', lineHeight: 1.08, marginBottom: '1.4rem' }}
-          >
-            Where healthy<br />
-            <em style={{ color: '#C9A06A', fontWeight: 500 }}>feels happy</em>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22, duration: 0.65 }}
-            style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.98rem', color: 'rgba(247,243,238,0.70)', lineHeight: 1.85, maxWidth: '460px', margin: '0 auto 2.4rem' }}
-          >
-            A warm, cozy cafe in Bengaluru where every plate is crafted<br />with love, every sip tells a story.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.34, duration: 0.6 }}
-            style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
-          >
-            <Link
-              to="/menu"
-              className="hero-cta"
-              style={{ backgroundColor: '#D9C496', color: '#2F3A2C', fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem', fontWeight: 600, padding: '14px 34px', borderRadius: '100px', textDecoration: 'none', letterSpacing: '0.02em' }}
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '1.75rem' }}
             >
-              Explore Menu
-            </Link>
-            <a
-              href="https://wa.me/919731119458"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-cta"
-              style={{ border: '1.5px solid rgba(247,243,238,0.42)', color: '#F5EEE3', fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem', fontWeight: 500, padding: '14px 34px', borderRadius: '100px', textDecoration: 'none', backgroundColor: 'transparent' }}
-            >
-              Order on WhatsApp
-            </a>
-          </motion.div>
+              <span style={{ display: 'block', width: '26px', height: '1px', background: 'rgba(205,182,128,0.55)' }} />
+              <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.67rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(210,188,138,0.72)' }}>
+                New BEL Road · Bengaluru
+              </span>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.52 }}
-            style={{ display: 'flex', alignItems: 'center', gap: '7px', justifyContent: 'center', marginTop: '2rem' }}
-          >
-            <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#6ee7a0', display: 'inline-block', boxShadow: '0 0 0 3px rgba(110,231,160,0.20)' }} />
-            <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.76rem', color: 'rgba(247,243,238,0.55)', margin: 0 }}>
-              Open today · 10:00 AM – 11:30 PM
-            </p>
-          </motion.div>
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-h1"
+              style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(2.5rem, 6.5vw, 96px)',
+                fontWeight: 600,
+                letterSpacing: '-2px',
+                lineHeight: 0.95,
+                color: '#f5f1ea',
+                marginBottom: '1.5rem',
+              }}
+            >
+              Where healthy<br />
+              <em style={{ color: '#d7b68a', fontWeight: 500, fontStyle: 'italic', display: 'block', marginTop: '-12px' }}>feels happy</em>
+            </motion.h1>
+
+            {/* Sub-copy */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.65 }}
+              style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.95rem', color: 'rgba(232,222,202,0.55)', lineHeight: 1.9, marginBottom: '2.6rem', maxWidth: '420px' }}
+            >
+              A warm, cozy café in Bengaluru where every plate is crafted with love, every sip tells a story.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.36, duration: 0.6 }}
+              style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '2.2rem' }}
+            >
+              <Link to="/menu" style={{
+                background: '#d9b98f', color: '#2f3a2f',
+                fontFamily: 'Poppins, sans-serif', fontSize: '0.85rem', fontWeight: 600,
+                padding: '14px 32px', borderRadius: '999px', textDecoration: 'none', letterSpacing: '0.01em',
+              }}>
+                Explore Menu
+              </Link>
+              <a href="https://wa.me/919731119458" target="_blank" rel="noopener noreferrer"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.22)', backgroundColor: 'transparent',
+                  backdropFilter: 'blur(4px)', color: '#d5cdc0',
+                  fontFamily: 'Poppins, sans-serif', fontSize: '0.85rem', fontWeight: 400,
+                  padding: '14px 32px', borderRadius: '999px', textDecoration: 'none',
+                }}>
+                Order on WhatsApp
+              </a>
+            </motion.div>
+
+            {/* Open badge */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.52 }}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#6ee7a0', display: 'inline-block', boxShadow: '0 0 0 3px rgba(110,231,160,0.18)', flexShrink: 0 }} />
+              <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.73rem', color: 'rgba(218,208,186,0.46)', margin: 0, letterSpacing: '0.03em' }}>
+                Open today · 10:00 AM – 11:30 PM
+              </p>
+            </motion.div>
+
+          </div>
+
 
         </div>
       </section>
@@ -383,7 +417,7 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true }}
             variants={fadeUp}
           >
             <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#8B6B4A', marginBottom: '1rem' }}>Our Story</p>
@@ -417,7 +451,7 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true }}
             variants={fadeUp}
             custom={1}
             style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
