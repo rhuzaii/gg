@@ -23,8 +23,8 @@ const contactDetails = [
   {
     icon: '💬',
     label: 'WhatsApp',
-    value: '+91 97311 19458',
-    href: 'https://wa.me/919731119458',
+    value: '+91 95914 30770',
+    href: 'https://wa.me/919591430770',
     linkText: 'Message Us',
   },
   {
@@ -139,7 +139,7 @@ export default function Contact() {
             <motion.a
               variants={fadeUp}
               custom={5}
-              href="https://wa.me/919731119458"
+              href="https://wa.me/919591430770"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
