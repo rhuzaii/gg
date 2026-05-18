@@ -235,6 +235,7 @@ const featuredDishes = [
 
 const MenuCard = ({ item }) => {
   const msg = `Hi! I'd like to order ${item.name} (₹${item.price}) from Greens & Giggles 🌿`;
+  const orderNum = '919591430770';
   return (
     <motion.div
       variants={fadeUp}
@@ -271,7 +272,7 @@ const MenuCard = ({ item }) => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
           <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', color: '#8B6B4A', fontWeight: 600 }}>₹{item.price}</span>
           <a
-            href={`https://wa.me/919731119458?text=${encodeURIComponent(msg)}`}
+            href={`https://wa.me/${orderNum}?text=${encodeURIComponent(msg)}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{

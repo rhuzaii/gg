@@ -150,7 +150,7 @@ export default function CartDrawer() {
 
                 {/* WhatsApp CTA */}
                 <a
-                  href={`https://wa.me/919731119458?text=${encodeURIComponent(buildWhatsAppMessage())}`}
+                  href={`https://wa.me/919591430770?text=${encodeURIComponent(buildWhatsAppMessage())}`}
                   target="_blank" rel="noopener noreferrer"
                   onClick={() => setDrawerOpen(false)}
                   style={{
