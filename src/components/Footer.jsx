@@ -77,7 +77,7 @@ export default function Footer() {
                 Mon – Sun: 10:00 AM – 11:30 PM
               </p>
               <a
-                href="https://wa.me/919731119458"
+                href="https://wa.me/919591430770"
                 target="_blank" rel="noopener noreferrer"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '8px', marginTop: '0.25rem',
