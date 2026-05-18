@@ -19,7 +19,7 @@ export default function CartDrawer() {
       return `• ${i.quantity}x ${i.name}${lineTotal}`;
     });
     const total = totalPrice > 0 ? `\n\nTotal: ₹${totalPrice}` : '';
-    return `Hi! I'd like to order from Greens & Giggles 🌿\n\nMy order:\n${lines.join('\n')}${total}\n\nPlease confirm! 🙏`;
+    return `Hi! I'd like to order from Greens & Giggles\n\nMy order:\n${lines.join('\n')}${total}\n\nPlease confirm!`;
   };
 
   return (
