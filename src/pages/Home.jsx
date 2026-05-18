@@ -386,7 +386,7 @@ export default function Home() {
               }}>
                 Explore Menu
               </Link>
-              <a href="https://wa.me/919731119458" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/919591430770" target="_blank" rel="noopener noreferrer"
                 style={{
                   border: '1px solid rgba(255,255,255,0.22)', backgroundColor: 'transparent',
                   backdropFilter: 'blur(4px)', color: '#d5cdc0',
@@ -666,7 +666,7 @@ export default function Home() {
               ))}
             </div>
             <a
-              href="https://wa.me/919731119458"
+              href="https://wa.me/919591430770"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -731,7 +731,7 @@ export default function Home() {
             Order directly via WhatsApp — it's fast, easy, and you'll hear from us right away.
           </p>
           <a
-            href="https://wa.me/919731119458"
+            href="https://wa.me/919591430770"
             target="_blank"
             rel="noopener noreferrer"
             style={{
