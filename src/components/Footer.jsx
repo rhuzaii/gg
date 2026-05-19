@@ -9,7 +9,7 @@ const WaIcon = () => (
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#4F5D4A', color: '#F7F3EE' }}>
+    <footer style={{ backgroundColor: '#505540', color: '#F7F3EE' }}>
       <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '5rem 1.5rem 2rem' }}>
         {/* Top grid */}
         <div
