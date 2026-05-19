@@ -5,7 +5,7 @@ import cafeInterior4 from '../assets/cafe-interior-4.png';
 import cafeEspresso from '../assets/cafe-espresso-machine.jpg';
 import cafeBarArea from '../assets/cafe-bar-area.jpg';
 import herobg from '../assets/desktophero.png';
-import mobileHeroBg from '../assets/mobilehero.png';
+import mobileHeroBg from '../assets/mobileherobg.png';
 
 import burritoBowl     from '../assets/burrito-bowl.jpg';
 import dishSmoothie    from '../assets/dish-smoothie.jpg';
