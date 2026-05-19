@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { CartProvider } from './context/CartContext';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar.jsx?hero-polish=20260519b';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CartDrawer from './components/CartDrawer';
 import CartButton from './components/CartButton';
 
 // Lazy-load pages so each page only loads its own assets
-const Home    = lazy(() => import('./pages/Home'));
+const Home    = lazy(() => import('./pages/Home.jsx?hero-polish=20260519b'));
 const Menu    = lazy(() => import('./pages/Menu'));
 const About   = lazy(() => import('./pages/About'));
 const Gallery = lazy(() => import('./pages/Gallery'));

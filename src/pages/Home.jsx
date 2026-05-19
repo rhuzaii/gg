@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 
 import cafeInterior4 from '../assets/cafe-interior-4.png';
 import cafeEspresso from '../assets/cafe-espresso-machine.jpg';
-import herobg from '../assets/herobg.png';
+import cafeBarArea from '../assets/cafe-bar-area.jpg';
+import herobg from '../assets/desktophero.png';
+import mobileHeroBg from '../assets/mobileherobg.png';
 
+import burritoBowl     from '../assets/burrito-bowl.jpg';
 import dishSmoothie    from '../assets/dish-smoothie.jpg';
 import dishSoup        from '../assets/dish-soup.jpg';
-import dishBurritoBowl from '../assets/dish-burrito-bowl.jpeg';
+import dishBurritoBowl from '../assets/dish-burrito-bowl.jpg';
 import dishToast       from '../assets/dish-toast.jpg';
 
 const fadeUp = {
@@ -227,10 +230,10 @@ function CaesarBowlSVG() {
 
 
 const featuredDishes = [
-  { id: 'f1', name: 'Signature Burrito Bowl', description: 'A hearty bowl loaded with crispy potatoes, fresh veggies, sour cream, and bold flavours.',         price: 219, veg: true, category: 'Burrito Bowls', image: dishBurritoBowl },
-  { id: 'f2', name: 'Signature Toast',        description: 'Golden avocado toast crowned with a sunny-side egg, fresh herbs, and a drizzle of hot sauce.',     price: 149, veg: true, category: 'Breakfast',     image: dishToast       },
-  { id: 'f3', name: 'Fresh Smoothies',        description: 'Vibrant blends of seasonal fruits — refreshing, nourishing, and absolutely delicious.',            price: 169, veg: true, category: 'Beverages',     image: dishSmoothie    },
-  { id: 'f4', name: 'Broccoli Almond Soup',   description: 'Velvety broccoli soup with a subtle nutty touch of almonds — warm, light, and satisfying.',       price: 169, veg: true, category: 'Soups',         image: dishSoup        },
+  { id: 'f1', name: 'Signature Burrito Bowl', description: 'A hearty bowl loaded with crispy potatoes, fresh veggies, sour cream, and bold flavours.',         price: 219, veg: true, category: 'Burrito Bowls', image: burritoBowl, imgHeight: 240, imgPosition: 'center 30%' },
+  { id: 'f2', name: 'Signature Toast',        description: 'Golden avocado toast crowned with a sunny-side egg, fresh herbs, and a drizzle of hot sauce.',     price: 149, veg: true, category: 'Breakfast',     image: dishToast,    imgHeight: 240 },
+  { id: 'f3', name: 'Fresh Smoothies',        description: 'Vibrant blends of seasonal fruits — refreshing, nourishing, and absolutely delicious.',            price: 169, veg: true, category: 'Beverages',     image: dishSmoothie, imgHeight: 240 },
+  { id: 'f4', name: 'Broccoli Almond Soup',   description: 'Velvety broccoli soup with a subtle nutty touch of almonds — warm, light, and satisfying.',       price: 169, veg: true, category: 'Soups',         image: dishSoup,     imgHeight: 240 },
 ];
 
 const MenuCard = ({ item }) => {
@@ -250,12 +253,12 @@ const MenuCard = ({ item }) => {
       }}
     >
       {/* Dish photo */}
-      <div style={{ height: '200px', overflow: 'hidden', flexShrink: 0 }}>
+      <div style={{ height: `${item.imgHeight || 200}px`, overflow: 'hidden', flexShrink: 0 }}>
         {item.image ? (
           <img
             src={item.image}
             alt={item.name}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: item.imgPosition || 'center center', display: 'block', transition: 'transform 0.4s ease' }}
             onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
             onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
           />
@@ -299,8 +302,8 @@ export default function Home() {
 
   return (
     <div>
-      {/* ── Hero — Minimal Editorial, typography-led ── */}
-      <section style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: '100vh', backgroundColor: '#4f5c46', boxSizing: 'border-box', width: '100%' }}>
+      {/* ── Hero — Minimal editorial, typography-led ── */}
+      <section className="hero-section-mobile" style={{ '--mobile-hero-url': `url(${mobileHeroBg})`, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', minHeight: '100vh', backgroundColor: '#4f5c46', boxSizing: 'border-box', width: '100%' }}>
 
         {/* Full-bleed hero background image */}
         <img
@@ -321,7 +324,7 @@ export default function Home() {
         />
 
         {/* ── Single-column editorial layout ── */}
-        <div style={{
+        <div className="hero-text-wrapper" style={{
           width: '100%',
           boxSizing: 'border-box',
           paddingLeft: 'clamp(1rem, 6vw, 7rem)',
@@ -338,6 +341,7 @@ export default function Home() {
 
             {/* Eyebrow */}
             <motion.div
+              className="hero-eyebrow"
               initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '1.75rem' }}
             >
@@ -368,6 +372,7 @@ export default function Home() {
 
             {/* Sub-copy */}
             <motion.p
+              className="hero-description"
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.65 }}
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.95rem', color: 'rgba(232,222,202,0.55)', lineHeight: 1.9, marginBottom: '2.6rem', maxWidth: '420px' }}
             >
@@ -376,6 +381,7 @@ export default function Home() {
 
             {/* CTAs */}
             <motion.div
+              className="hero-buttons"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.36, duration: 0.6 }}
               style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '2.2rem' }}
             >
@@ -398,7 +404,7 @@ export default function Home() {
             </motion.div>
 
             {/* Open badge */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.52 }}
+            <motion.div className="hero-status-row" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.52 }}
               style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#6ee7a0', display: 'inline-block', boxShadow: '0 0 0 3px rgba(110,231,160,0.18)', flexShrink: 0 }} />
               <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.73rem', color: 'rgba(218,208,186,0.46)', margin: 0, letterSpacing: '0.03em' }}>
@@ -461,7 +467,7 @@ export default function Home() {
               <img src={cafeInterior4} alt="Cozy Corner at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '4/3' }} />
             </div>
             <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 16px rgba(79,93,74,0.1)' }}>
-              <img src={cafeEspresso} alt="Espresso Machine at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '16/7' }} />
+              <img src={cafeBarArea} alt="Bar Nook at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '16/7' }} />
             </div>
           </motion.div>
         </div>
