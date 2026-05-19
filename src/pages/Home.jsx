@@ -341,6 +341,7 @@ export default function Home() {
 
             {/* Eyebrow */}
             <motion.div
+              className="hero-eyebrow"
               initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.55 }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '1.75rem' }}
             >
@@ -371,6 +372,7 @@ export default function Home() {
 
             {/* Sub-copy */}
             <motion.p
+              className="hero-description"
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.65 }}
               style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.95rem', color: 'rgba(232,222,202,0.55)', lineHeight: 1.9, marginBottom: '2.6rem', maxWidth: '420px' }}
             >

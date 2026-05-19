@@ -630,14 +630,36 @@ a, button { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-text-wrapper > div {
-    padding-top: 64px !important;
+    padding-top: 72px !important;
     padding-bottom: 1.5rem !important;
-    max-width: 285px !important;
+    max-width: 270px !important;
+  }
+
+  .hero-eyebrow {
+    gap: 8px !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .hero-eyebrow span:first-child {
+    width: 22px !important;
+  }
+
+  .hero-eyebrow span:last-child {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.24em !important;
+  }
+
+  .hero-description {
+    max-width: 250px !important;
+    font-size: 0.82rem !important;
+    line-height: 1.68 !important;
+    margin-bottom: 2rem !important;
+    color: rgba(232, 222, 202, 0.62) !important;
   }
 
   .hero-buttons {
-    margin-bottom: 2.35rem !important;
-    gap: 0.7rem !important;
+    margin-bottom: 3.05rem !important;
+    gap: 0.62rem !important;
   }
 
   .hero-buttons a {
@@ -645,10 +667,10 @@ a, button { -webkit-tap-highlight-color: transparent; }
     align-items: center !important;
     justify-content: center !important;
     width: fit-content !important;
-    min-width: 190px !important;
-    max-width: 72vw !important;
-    padding: 12px 24px !important;
-    font-size: 0.8rem !important;
+    min-width: 176px !important;
+    max-width: 68vw !important;
+    padding: 11px 22px !important;
+    font-size: 0.76rem !important;
     text-align: center !important;
     box-sizing: border-box !important;
   }
@@ -668,10 +690,10 @@ a, button { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-h1 {
-    font-size: clamp(2.3rem, 8.5vw, 3rem) !important;
-    line-height: 1.06 !important;
-    letter-spacing: -1.5px !important;
-    margin-bottom: 1.4rem !important;
+    font-size: clamp(2.12rem, 7.8vw, 2.72rem) !important;
+    line-height: 1.03 !important;
+    letter-spacing: -1.2px !important;
+    margin-bottom: 1.12rem !important;
   }
 
   .hero-text-wrapper h1,
