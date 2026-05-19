@@ -640,6 +640,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-status-row {
+    display: none !important;
     width: fit-content !important;
     padding: 6px 10px !important;
     border-radius: 999px !important;
