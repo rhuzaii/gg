@@ -7,7 +7,7 @@ import herobg from '../assets/herobg.png';
 
 import dishSmoothie    from '../assets/dish-smoothie.jpg';
 import dishSoup        from '../assets/dish-soup.jpg';
-import dishBurritoBowl from '../assets/dish-burrito-bowl.jpg';
+import dishBurritoBowl from '../assets/dish-burrito-bowl.jpeg';
 import dishToast       from '../assets/dish-toast.jpg';
 
 const fadeUp = {
