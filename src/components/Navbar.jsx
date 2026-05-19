@@ -32,6 +32,7 @@ export default function Navbar() {
 
   return (
     <nav
+      className={`site-nav${isHome ? ' site-nav-home' : ''}${transparent ? ' site-nav-transparent' : ''}`}
       style={{
         backgroundColor: transparent ? 'transparent' : 'rgba(247,243,238,0.96)',
         backdropFilter: transparent ? 'none' : 'blur(12px)',

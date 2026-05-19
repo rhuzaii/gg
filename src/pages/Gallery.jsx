@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import cafeInterior2 from '../assets/cafe-interior-2.png';
 import cafeInterior3 from '../assets/cafe-interior-3.png';
 import cafeInterior4 from '../assets/cafe-interior-4.png';
-import cafeBoohs from '../assets/cafe-booths.jpg';
+import cafeBooths from '../assets/cafe-booths.jpg';
 import cafeEntranceReal from '../assets/cafe-entrance-real.jpg';
 import cafeWavyCeiling from '../assets/cafe-wavy-ceiling.jpg';
 import cafeBarArea from '../assets/cafe-bar-area.jpg';
@@ -14,64 +14,215 @@ import cafeEspressoMachine from '../assets/cafe-espresso-machine.jpg';
 import cafeColdBrew from '../assets/cafe-cold-brew.jpg';
 
 import dishBurritoBowl from '../assets/dish-burrito-bowl.jpg';
-import dishToast       from '../assets/dish-toast.jpg';
-import dishSmoothie    from '../assets/dish-smoothie.jpg';
-import dishSoup        from '../assets/dish-soup.jpg';
+import dishToast from '../assets/dish-toast.jpg';
+import dishSmoothie from '../assets/dish-smoothie.jpg';
+import dishSoup from '../assets/dish-soup.jpg';
+
+import cafeSpecial1 from '../assets/food1.jpg';
+import cafeSpecial2 from '../assets/food2.jpg';
+import cafeSpecial3 from '../assets/food3.jpg';
+import cafeSpecial4 from '../assets/food4.jpg';
 
 const galleryItems = [
-  { id: 1,  src: cafeBoohs,           label: 'Botanical Arches',    category: 'Interiors'  },
-  { id: 2,  src: cafeWavyCeiling,     label: 'Wave & Mirror',       category: 'Interiors'  },
-  { id: 3,  src: cafeBarArea,         label: 'The Bar Nook',        category: 'Interiors'  },
-  { id: 4,  src: cafeBarStation,      label: 'The Bar Station',     category: 'Interiors'  },
-  { id: 5,  src: cafeDoorView,        label: 'Through the Door',    category: 'Entrance'   },
-  { id: 6,  src: cafeEntranceReal,    label: 'Our Doorstep',        category: 'Entrance'   },
-  { id: 7,  src: cafeInterior2,       label: 'Warm Evenings',       category: 'Interiors'  },
-  { id: 8,  src: cafeInterior3,       label: 'Mirror & Light',      category: 'Interiors'  },
-  { id: 9,  src: cafeInterior4,       label: 'Cozy Corner',         category: 'Interiors'  },
-  { id: 10, src: dishBurritoBowl,     label: 'Signature Burrito Bowl', category: 'Food'    },
-  { id: 11, src: cafeEspressoMachine, label: 'The Machine',         category: 'Beverages'  },
-  { id: 12, src: cafeColdBrew,        label: 'Cold Brew Pour',      category: 'Beverages'  },
-  { id: 13, src: dishToast,           label: 'Signature Toast',     category: 'Food'       },
-  { id: 14, src: dishSmoothie,        label: 'Fresh Smoothie',      category: 'Food'       },
-  { id: 15, src: dishSoup,            label: 'Broccoli Almond Soup',category: 'Food'       },
+  { id: 1,  src: cafeBooths,         label: 'Botanical Arches',       category: 'Interiors'  },
+  { id: 2,  src: cafeBarArea,        label: 'The Bar Nook',           category: 'Interiors'  },
+  { id: 3,  src: cafeWavyCeiling,    label: 'Wave & Mirror',          category: 'Interiors'  },
+  { id: 4,  src: cafeBarStation,     label: 'The Bar Station',        category: 'Interiors'  },
+  { id: 5,  src: cafeDoorView,       label: 'Through the Door',       category: 'Entrance'   },
+  { id: 6,  src: cafeEntranceReal,   label: 'Our Doorstep',           category: 'Entrance'   },
+  { id: 7,  src: cafeInterior2,      label: 'Warm Evenings',          category: 'Interiors'  },
+  { id: 8,  src: cafeInterior3,      label: 'Mirror & Light',         category: 'Interiors'  },
+  { id: 9,  src: cafeInterior4,      label: 'Cozy Corner',            category: 'Interiors'  },
+  { id: 10, src: dishBurritoBowl,    label: 'Signature Burrito Bowl', category: 'Food'       },
+  { id: 11, src: cafeEspressoMachine,label: 'The Machine',            category: 'Beverages'  },
+  { id: 12, src: cafeColdBrew,       label: 'Cold Brew Pour',         category: 'Beverages'  },
+  { id: 13, src: dishToast,          label: 'Signature Toast',        category: 'Food'       },
+  { id: 14, src: dishSmoothie,       label: 'Fresh Smoothie',         category: 'Food'       },
+  { id: 15, src: dishSoup,           label: 'Broccoli Almond Soup',   category: 'Food'       },
+  { id: 16, src: cafeSpecial1,       label: 'Kitchen Favourites',     category: 'Food'       },
+  { id: 17, src: cafeSpecial2,       label: 'Chef\'s Special',        category: 'Food'       },
+  { id: 18, src: cafeSpecial3,       label: 'Fresh from the Kitchen', category: 'Food'       },
+  { id: 19, src: cafeSpecial4,       label: 'Daily Specials',         category: 'Food'       },
 ];
 
-const galleryCategories = ['All', 'Food', 'Interiors', 'Entrance', 'Beverages'];
+const categories = ['All', 'Food', 'Interiors', 'Entrance', 'Beverages'];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
+
+function GalleryCard({ item, onClick, index }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      layout
+      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
+      transition={{ delay: index * 0.04 }}
+      onClick={() => onClick(item)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderRadius: '14px',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        position: 'relative',
+        boxShadow: hovered
+          ? '0 16px 48px rgba(79,93,74,0.22)'
+          : '0 2px 16px rgba(79,93,74,0.10)',
+        transition: 'box-shadow 0.35s ease',
+        backgroundColor: '#E6DDD0',
+      }}
+    >
+      <div style={{ overflow: 'hidden', aspectRatio: '4/3' }}>
+        <img
+          src={item.src}
+          alt={item.label}
+          loading="lazy"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            transform: hovered ? 'scale(1.07)' : 'scale(1)',
+            transition: 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+      </div>
+
+      {/* Overlay */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to top, rgba(15,22,15,0.78) 0%, rgba(15,22,15,0.12) 55%, transparent 100%)',
+        opacity: hovered ? 1 : 0.65,
+        transition: 'opacity 0.35s ease',
+      }} />
+
+      {/* Labels */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '1.1rem 1rem 0.85rem',
+        transform: hovered ? 'translateY(0)' : 'translateY(4px)',
+        transition: 'transform 0.35s ease',
+      }}>
+        <p style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          color: '#F7F3EE',
+          margin: 0,
+          lineHeight: 1.3,
+        }}>
+          {item.label}
+        </p>
+        <p style={{
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: '0.65rem',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: 'rgba(230,201,168,0.82)',
+          marginTop: '3px',
+          opacity: hovered ? 1 : 0.7,
+          transition: 'opacity 0.3s ease',
+        }}>
+          {item.category}
+        </p>
+      </div>
+
+      {/* Expand icon on hover */}
+      <div style={{
+        position: 'absolute',
+        top: '0.75rem',
+        right: '0.75rem',
+        width: '30px',
+        height: '30px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(247,243,238,0.15)',
+        border: '1px solid rgba(247,243,238,0.3)',
+        backdropFilter: 'blur(4px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: hovered ? 1 : 0,
+        transform: hovered ? 'scale(1)' : 'scale(0.7)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+      }}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F7F3EE" strokeWidth="2.5" strokeLinecap="round">
+          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+        </svg>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [lightbox, setLightbox] = useState(null);
 
-  const filtered = galleryItems.filter((item) =>
-    activeFilter === 'All' || item.category === activeFilter
+  const filtered = galleryItems.filter(
+    (item) => activeFilter === 'All' || item.category === activeFilter
   );
+
+  const lightboxIndex = lightbox ? filtered.findIndex((i) => i.id === lightbox.id) : -1;
+
+  const prev = useCallback(() => {
+    if (lightboxIndex > 0) setLightbox(filtered[lightboxIndex - 1]);
+  }, [lightboxIndex, filtered]);
+
+  const next = useCallback(() => {
+    if (lightboxIndex < filtered.length - 1) setLightbox(filtered[lightboxIndex + 1]);
+  }, [lightboxIndex, filtered]);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightbox(null);
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox, prev, next]);
+
+  const countFor = (cat) =>
+    cat === 'All' ? galleryItems.length : galleryItems.filter((i) => i.category === cat).length;
 
   return (
     <div style={{ backgroundColor: '#F7F3EE', minHeight: '100vh', paddingTop: '72px' }}>
+
       {/* Header */}
-      <section style={{ backgroundColor: '#4F5D4A', padding: '4rem 1.5rem 3.5rem', overflow: 'hidden', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '280px', height: '280px', borderRadius: '50%', backgroundColor: 'rgba(230,201,168,0.1)', pointerEvents: 'none' }} />
+      <section style={{
+        backgroundColor: '#4F5D4A',
+        padding: '4rem 1.5rem 3.5rem',
+        overflow: 'hidden',
+        position: 'relative',
+      }}>
+        <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '320px', height: '320px', borderRadius: '50%', backgroundColor: 'rgba(230,201,168,0.08)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-40px', left: '-40px', width: '200px', height: '200px', borderRadius: '50%', backgroundColor: 'rgba(230,201,168,0.06)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: '720px', margin: '0 auto', textAlign: 'center', position: 'relative' }}>
           <motion.p
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.72rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#E6C9A8', marginBottom: '0.75rem' }}
           >
             Gallery
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 6vw, 3.8rem)', fontWeight: 700, color: '#F7F3EE', lineHeight: 1.1, marginBottom: '0.75rem' }}
           >
             Inside Greens<br /><em style={{ color: '#E6C9A8' }}>&amp; Giggles</em>
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-            style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem', color: 'rgba(247,243,238,0.72)', lineHeight: 1.7 }}
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}
+            style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem', color: 'rgba(247,243,238,0.68)', lineHeight: 1.7 }}
           >
             Warm lights, leafy arches, and a space built with love — welcome in.
           </motion.p>
@@ -79,70 +230,96 @@ export default function Gallery() {
       </section>
 
       {/* Filters */}
-      <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #E6C9A8', padding: '1rem 1.5rem' }}>
+      <div style={{
+        backgroundColor: '#fff',
+        borderBottom: '1px solid rgba(230,201,168,0.5)',
+        padding: '1rem 1.5rem',
+        position: 'sticky',
+        top: '72px',
+        zIndex: 10,
+      }}>
         <div style={{ maxWidth: '1152px', margin: '0 auto', display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          {galleryCategories.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
               style={{
-                fontFamily: 'Poppins, sans-serif', fontSize: '0.8rem', fontWeight: 500,
-                padding: '7px 20px', borderRadius: '100px', border: '1.5px solid',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: '0.78rem',
+                fontWeight: 500,
+                padding: '7px 18px',
+                borderRadius: '100px',
+                border: '1.5px solid',
                 borderColor: activeFilter === cat ? '#4F5D4A' : '#E6C9A8',
                 backgroundColor: activeFilter === cat ? '#4F5D4A' : 'transparent',
                 color: activeFilter === cat ? '#F7F3EE' : '#7A8B75',
-                cursor: 'pointer', transition: 'all 0.2s',
+                cursor: 'pointer',
+                transition: 'all 0.22s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
               }}
             >
               {cat}
+              <span style={{
+                fontSize: '0.65rem',
+                fontWeight: 600,
+                backgroundColor: activeFilter === cat ? 'rgba(247,243,238,0.2)' : 'rgba(79,93,74,0.1)',
+                color: activeFilter === cat ? '#F7F3EE' : '#8B6B4A',
+                borderRadius: '100px',
+                padding: '1px 7px',
+                transition: 'all 0.22s ease',
+              }}>
+                {countFor(cat)}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Masonry Grid */}
-      <section style={{ padding: '2.5rem 1.5rem 6rem', maxWidth: '1152px', margin: '0 auto' }}>
-        <motion.div layout className="gallery-masonry" style={{ columns: '2 280px', columnGap: '16px' }}>
-          <AnimatePresence>
-            {filtered.map((item) => (
-              <motion.div
-                key={item.id} layout
-                variants={fadeUp} initial="hidden" animate="visible"
-                exit={{ opacity: 0, scale: 0.95 }}
-                onClick={() => setLightbox(item)}
-                whileHover={{ scale: 1.015 }}
-                style={{
-                  breakInside: 'avoid', marginBottom: '16px',
-                  borderRadius: '16px', overflow: 'hidden',
-                  cursor: 'pointer', position: 'relative',
-                  boxShadow: '0 4px 24px rgba(79,93,74,0.12)',
-                }}
-              >
-                <img
-                  src={item.src} alt={item.label}
-                  style={{ width: '100%', display: 'block', objectFit: 'cover' }}
-                  loading="lazy"
-                />
-                <div style={{
-                  position: 'absolute', bottom: 0, left: 0, right: 0,
-                  background: 'linear-gradient(to top, rgba(20,26,20,0.7) 0%, transparent 100%)',
-                  padding: '2rem 1.25rem 1rem',
-                }}>
-                  <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1rem', color: '#F7F3EE', margin: 0 }}>{item.label}</p>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.7rem', color: 'rgba(247,243,238,0.7)', marginTop: '3px' }}>{item.category}</p>
-                </div>
-              </motion.div>
+      {/* Grid */}
+      <section style={{ padding: '2.5rem 1.5rem 6rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFilter}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            {filtered.map((item, index) => (
+              <GalleryCard key={item.id} item={item} onClick={setLightbox} index={index} />
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
+        {filtered.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '4rem', color: '#7A8B75', fontFamily: 'Poppins, sans-serif' }}>
+            No items found.
+          </div>
+        )}
 
         {/* Instagram CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ textAlign: 'center', marginTop: '3rem', padding: '3rem 1.5rem', backgroundColor: '#fff', borderRadius: '20px', border: '1px solid #E6C9A8' }}
+          style={{
+            textAlign: 'center',
+            marginTop: '3.5rem',
+            padding: '3rem 2rem',
+            backgroundColor: '#fff',
+            borderRadius: '20px',
+            border: '1px solid rgba(230,201,168,0.6)',
+          }}
         >
-          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#8B6B4A', marginBottom: '0.75rem' }}>Follow us for more</p>
-          <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#4F5D4A', marginBottom: '0.75rem' }}>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#8B6B4A', marginBottom: '0.75rem' }}>
+            Follow us for more
+          </p>
+          <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#4F5D4A', marginBottom: '0.6rem' }}>
             See it on Instagram
           </h3>
           <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.88rem', color: '#7A8B75', marginBottom: '1.5rem' }}>
@@ -156,6 +333,7 @@ export default function Gallery() {
               backgroundColor: '#4F5D4A', color: '#F7F3EE',
               fontFamily: 'Poppins, sans-serif', fontSize: '0.88rem', fontWeight: 500,
               padding: '12px 28px', borderRadius: '100px', textDecoration: 'none',
+              transition: 'background-color 0.2s ease',
             }}
           >
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -171,39 +349,96 @@ export default function Gallery() {
         {lightbox && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
             onClick={() => setLightbox(null)}
             style={{
               position: 'fixed', inset: 0,
-              backgroundColor: 'rgba(10,14,10,0.92)',
+              backgroundColor: 'rgba(8,12,8,0.94)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               zIndex: 200, padding: '1.5rem',
             }}
           >
+            {/* Prev button */}
+            {lightboxIndex > 0 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                style={{
+                  position: 'fixed', left: '1.25rem', top: '50%', transform: 'translateY(-50%)',
+                  width: '44px', height: '44px', borderRadius: '50%',
+                  border: '1.5px solid rgba(247,243,238,0.25)',
+                  backgroundColor: 'rgba(247,243,238,0.1)',
+                  backdropFilter: 'blur(6px)',
+                  cursor: 'pointer', color: '#F7F3EE', fontSize: '1.1rem',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'background-color 0.2s',
+                  zIndex: 201,
+                }}
+              >
+                ‹
+              </button>
+            )}
+
+            {/* Next button */}
+            {lightboxIndex < filtered.length - 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                style={{
+                  position: 'fixed', right: '1.25rem', top: '50%', transform: 'translateY(-50%)',
+                  width: '44px', height: '44px', borderRadius: '50%',
+                  border: '1.5px solid rgba(247,243,238,0.25)',
+                  backgroundColor: 'rgba(247,243,238,0.1)',
+                  backdropFilter: 'blur(6px)',
+                  cursor: 'pointer', color: '#F7F3EE', fontSize: '1.1rem',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'background-color 0.2s',
+                  zIndex: 201,
+                }}
+              >
+                ›
+              </button>
+            )}
+
             <motion.div
-              initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.88, opacity: 0 }}
+              key={lightbox.id}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
-              style={{ maxWidth: '760px', width: '100%', borderRadius: '20px', overflow: 'hidden', position: 'relative' }}
+              style={{
+                maxWidth: '820px', width: '100%',
+                borderRadius: '18px', overflow: 'hidden',
+                position: 'relative',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.5)',
+              }}
             >
-              <img src={lightbox.src} alt={lightbox.label} style={{ width: '100%', display: 'block', maxHeight: '80dvh', objectFit: 'cover' }} />
+              <img
+                src={lightbox.src}
+                alt={lightbox.label}
+                style={{ width: '100%', display: 'block', maxHeight: '80dvh', objectFit: 'cover' }}
+              />
               <div style={{
                 position: 'absolute', bottom: 0, left: 0, right: 0,
-                background: 'linear-gradient(to top, rgba(10,14,10,0.8), transparent)',
-                padding: '2rem 1.5rem 1.25rem',
+                background: 'linear-gradient(to top, rgba(8,12,8,0.85), transparent)',
+                padding: '2.5rem 1.5rem 1.5rem',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
               }}>
                 <div>
-                  <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', color: '#F7F3EE' }}>{lightbox.label}</p>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.75rem', color: 'rgba(247,243,238,0.65)', marginTop: '3px' }}>{lightbox.category}</p>
+                  <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.15rem', color: '#F7F3EE', margin: 0 }}>{lightbox.label}</p>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.72rem', color: 'rgba(230,201,168,0.8)', marginTop: '4px' }}>
+                    {lightbox.category} &nbsp;·&nbsp; {lightboxIndex + 1} / {filtered.length}
+                  </p>
                 </div>
                 <button
                   onClick={() => setLightbox(null)}
                   style={{
-                    width: '36px', height: '36px', borderRadius: '50%',
+                    width: '38px', height: '38px', borderRadius: '50%',
                     border: '1.5px solid rgba(247,243,238,0.3)',
                     backgroundColor: 'rgba(247,243,238,0.1)',
                     cursor: 'pointer', color: '#F7F3EE', fontSize: '1rem',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    backdropFilter: 'blur(4px)',
+                    flexShrink: 0,
                   }}
                 >✕</button>
               </div>

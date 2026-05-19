@@ -583,11 +583,88 @@ a, button { -webkit-tap-highlight-color: transparent; }
   }
 }
 
-/* ── Hero background image: shift to left on mobile so bowl artwork
-      doesn't overlap the text content ── */
-@media (max-width: 640px) {
+/* ══════════════════════════════════════════════════════════════
+   HERO — Mobile: dedicated art-directed background image
+   mobile-hero.webp is a pre-composed portrait canvas with the
+   bowl already placed at the bottom and olive atmosphere baked
+   in.  No transforms, gradient hacks, or overlays needed.
+   Desktop img tag is hidden; CSS background takes over.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  .site-nav-home.site-nav-transparent {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Switch to the art-directed mobile canvas */
+  .hero-section-mobile {
+    background-image: var(--mobile-hero-url) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    align-items: flex-start !important;
+  }
+
+  /* Hide desktop <img> — mobile uses CSS background-image instead */
   .hero-bg-img {
-    object-position: 20% center !important;
+    display: none !important;
+  }
+
+  /* No overlay needed — composition is already correct in the image */
+  .hero-section-mobile::before {
+    display: none !important;
+  }
+
+  .hero-text-wrapper {
+    position: relative !important;
+    z-index: 2 !important;
+    align-items: flex-start !important;
+    min-height: unset !important;
+    padding-top: 0 !important;
+  }
+
+  .hero-text-wrapper > div {
+    padding-top: 64px !important;
+    padding-bottom: 1.5rem !important;
+    max-width: 285px !important;
+  }
+
+  .hero-buttons {
+    margin-bottom: 1.55rem !important;
+  }
+
+  .hero-status-row {
+    width: fit-content !important;
+    padding: 6px 10px !important;
+    border-radius: 999px !important;
+    background: rgba(45, 58, 44, 0.28) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+
+  .hero-status-row p {
+    color: rgba(244, 236, 218, 0.76) !important;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2.3rem, 8.5vw, 3rem) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -1.5px !important;
+    margin-bottom: 1.4rem !important;
+  }
+
+  .hero-text-wrapper h1,
+  .hero-text-wrapper em,
+  .hero-text-wrapper p,
+  .hero-text-wrapper span {
+    text-shadow:
+      0 2px 12px rgba(8, 16, 8, 0.35),
+      0 1px 3px  rgba(8, 16, 8, 0.16);
   }
 }
-
