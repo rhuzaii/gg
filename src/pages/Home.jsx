@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import cafeInterior4 from '../assets/cafe-interior-4.png';
-import cafeBarArea from '../assets/cafe-bar-area.jpg';
+import cafeEspresso from '../assets/cafe-espresso-machine.jpg';
 import herobg from '../assets/herobg.png';
 
 import dishSmoothie    from '../assets/dish-smoothie.jpg';
@@ -461,7 +461,7 @@ export default function Home() {
               <img src={cafeInterior4} alt="Cozy Corner at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '4/3' }} />
             </div>
             <div style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 16px rgba(79,93,74,0.1)' }}>
-              <img src={cafeBarArea} alt="The Bar Nook at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '16/7' }} />
+              <img src={cafeEspresso} alt="Espresso Machine at Greens & Giggles" style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '16/7' }} />
             </div>
           </motion.div>
         </div>
